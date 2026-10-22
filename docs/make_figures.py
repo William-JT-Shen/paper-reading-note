@@ -421,7 +421,7 @@ COVER = {
 
 def cover(lang: str):
     L = COVER[lang]
-    W, H = 170, 80
+    W, H = 170, 72
     fig, ax = canvas(W, H)
 
     # decorative note card on the right
