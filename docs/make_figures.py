@@ -40,7 +40,8 @@ GREEN_L = "#DFF0E7"
 
 
 def canvas(w: float, h: float):
-    fig = plt.figure(figsize=(w / 12, h / 12), dpi=200, facecolor=BG)
+    # 20 data units per inch keeps text large when the image is scaled to article width.
+    fig = plt.figure(figsize=(w / 20, h / 20), dpi=200, facecolor=BG)
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_xlim(0, w)
     ax.set_ylim(0, h)
@@ -125,7 +126,7 @@ WF = {
             ("Extraction", "problem / method\nevidence / results"),
             ("Appraisal", "7.1 author limits\n7.2 further limits"),
             ("Positioning", "2–4 nearest works\nproblem / method"),
-            ("Connect & gap", "transferable method\nnext experiment"),
+            ("Connect", "transferable method\nnext experiment / gaps"),
             ("Assemble", "template + quality gates\ncheck_note.py"),
         ],
         "foot": "Seven reading steps plus a self-check; L3 adds §§11–12 (Python reproduction + formula verification)",
@@ -135,26 +136,39 @@ WF = {
 
 def workflow(lang: str):
     L = WF[lang]
-    W, H = 170, 64
+    W, H = 170, 100
     fig, ax = canvas(W, H)
-    text(ax, 4, 58, L["title"], size=19, weight="bold", ha="left")
-    text(ax, 4, 52, L["sub"], size=9.5, color=MUTED, ha="left")
+    text(ax, 4, 93, L["title"], size=20, weight="bold", ha="left")
+    text(ax, 4, 87, L["sub"], size=11, color=MUTED, ha="left")
 
-    w, h, gap = 16.8, 23, 4.2
-    x0, y0 = 2.2, 21
+    w, h, gap = 37, 22, 5
+    x0 = 3
+    row_y = [57, 18]
     for i, (head, desc) in enumerate(L["steps"]):
-        x = x0 + i * (w + gap)
+        row, col = divmod(i, 4)
+        x = x0 + col * (w + gap)
+        y = row_y[row]
         fill = TEAL_L if i % 2 == 0 else YELLOW_L
-        rounded(ax, x, y0, w, h, fill=fill, edge=TEAL if i % 2 == 0 else YELLOW)
-        circle_num(ax, x + 3.2, y0 + h - 3.4, i + 1,
-                   fill=TEAL if i % 2 == 0 else "#B58B2A", r=2.2)
-        text(ax, x + w / 2 + 1.5, y0 + h - 6.6, head, size=10.5, weight="bold")
-        text(ax, x + w / 2, y0 + 8, desc, size=8.2, color=MUTED, linespacing=1.5)
-        if i < 7:
-            arrow(ax, x + w + 0.4, y0 + h / 2, x + w + gap - 0.4, y0 + h / 2,
-                  color=TEAL, lw=1.1)
+        rounded(ax, x, y, w, h, fill=fill, edge=TEAL if i % 2 == 0 else YELLOW)
+        circle_num(ax, x + 4.0, y + h - 4.0, i + 1,
+                   fill=TEAL if i % 2 == 0 else "#B58B2A", r=2.8)
+        text(ax, x + w / 2, y + h - 7.0, head, size=13, weight="bold")
+        text(ax, x + w / 2, y + 7.6, desc, size=10, color=MUTED, linespacing=1.55)
+        if i < 3:
+            arrow(ax, x + w + 0.4, y + h / 2, x + w + gap - 0.5, y + h / 2,
+                  color=TEAL, lw=1.4, ms=14)
+        elif 3 < i < 7:
+            arrow(ax, x + w + 0.4, y + h / 2, x + w + gap - 0.5, y + h / 2,
+                  color=TEAL, lw=1.4, ms=14)
 
-    text(ax, W / 2, 8.5, L["foot"], size=9.5, color=MUTED)
+    # snake connector from step 4 (right end of row 1) to step 5 (left end of row 2)
+    x4 = x0 + 3 * (w + gap) + w / 2
+    x5 = x0 + w / 2
+    ax.plot([x4, x4], [57, 48.5], color=TEAL, lw=1.4, zorder=3)
+    ax.plot([x4, x5], [48.5, 48.5], color=TEAL, lw=1.4, zorder=3)
+    arrow(ax, x5, 48.5, x5, 40.5, color=TEAL, lw=1.4, ms=14)
+
+    text(ax, W / 2, 5, L["foot"], size=10.5, color=MUTED)
     fig.savefig(OUT / f"workflow-{lang}.png", dpi=200, facecolor=BG)
     plt.close(fig)
 
@@ -185,21 +199,21 @@ AR = {
 
 def architecture(lang: str):
     L = AR[lang]
-    W, H = 150, 86
+    W, H = 150, 100
     fig, ax = canvas(W, H)
-    text(ax, 6, 80, L["title"], size=19, weight="bold", ha="left")
+    text(ax, 6, 93, L["title"], size=20 if lang == "zh" else 18.5, weight="bold", ha="left")
 
-    y_positions = [56, 39, 22, 5]
-    h = 15
+    y_positions = [68, 47, 26, 5]
+    h = 16
     for i, ((title, desc, fill, edge), y) in enumerate(zip(L["layers"], y_positions)):
         rounded(ax, 8, y, 134, h, fill=fill, edge=edge, lw=1.4)
-        circle_num(ax, 13, y + h / 2, i + 1, fill=edge, r=2.8)
-        text(ax, 19, y + h / 2 + 2.2, title, size=13, weight="bold", ha="left")
-        text(ax, 19, y + h / 2 - 3.8, desc, size=9.8, color=MUTED, ha="left")
+        circle_num(ax, 14, y + h / 2, i + 1, fill=edge, r=3.2)
+        text(ax, 21, y + h / 2 + 2.6, title, size=14, weight="bold", ha="left")
+        text(ax, 21, y + h / 2 - 3.8, desc, size=10.8, color=MUTED, ha="left")
         if i < 3:
-            arrow(ax, 75, y - 0.5, 75, y_positions[i + 1] + h + 0.5, color=TEAL, lw=1.2)
+            arrow(ax, 75, y - 0.5, 75, y_positions[i + 1] + h + 0.5, color=TEAL, lw=1.4, ms=14)
 
-    text(ax, 75, 1.2, "paper → note", size=7.5, color=MUTED, style="italic")
+    text(ax, 75, 1.2, "paper → note", size=9, color=MUTED, style="italic")
     fig.savefig(OUT / f"architecture-{lang}.png", dpi=200, facecolor=BG)
     plt.close(fig)
 
@@ -223,12 +237,12 @@ FC = {
     "en": {
         "title": "4.3.0 derivation chain: equations are a story, not a list",
         "nodes": [
-            ("Start", "token representations\n+ global interaction"),
+            ("Start", "token reps\n+ global mix"),
             ("Eq. (1)", "scaled dot-product\nattention"),
-            ("Multi-head", "parallel subspaces\nfor different relations"),
-            ("Eq. (2)", "position-wise FFN\nadds nonlinearity"),
-            ("Position", "inject order\nbreak permutation"),
-            ("Transformer", "6-layer block\nstackable"),
+            ("Multi-head", "parallel subspaces"),
+            ("Eq. (2)", "position-wise FFN\n+ nonlinearity"),
+            ("Position", "inject order"),
+            ("Transformer", "6-layer block"),
         ],
         "arrows": ["aggregate", "single head averages", "linear only", "order-blind", "stack"],
         "foot": "Write the chain first: what the previous equation leaves unsolved is what the next one fixes.",
@@ -238,27 +252,28 @@ FC = {
 
 def formula_chain(lang: str):
     L = FC[lang]
-    W, H = 170, 62
+    W, H = 180, 80
     fig, ax = canvas(W, H)
-    text(ax, 4, 56, L["title"], size=19, weight="bold", ha="left")
+    text(ax, 4, 73, L["title"], size=20, weight="bold", ha="left")
 
     n = 6
-    w, gap = 20, 7.2
-    x0, y0, h = 6, 21, 21
+    w, gap = 25, 5
+    x0, y0, h = 2.5, 25, 25
     colors = [(TEAL_L, TEAL), (YELLOW_L, "#B58B2A"), (ORANGE_L, ORANGE),
               (TEAL_L, TEAL), (YELLOW_L, "#B58B2A"), (ORANGE_L, ORANGE)]
     for i, ((head, desc), (fill, edge)) in enumerate(zip(L["nodes"], colors)):
         x = x0 + i * (w + gap)
         rounded(ax, x, y0, w, h, fill=fill, edge=edge, lw=1.3)
-        text(ax, x + w / 2, y0 + h - 4.2, head, size=10, weight="bold")
-        text(ax, x + w / 2, y0 + 7.6, desc, size=8.4, color=MUTED, linespacing=1.5)
+        text(ax, x + w / 2, y0 + h - 5.0, head, size=11.5, weight="bold")
+        text(ax, x + w / 2, y0 + 8.0, desc, size=9.2 if lang == "zh" else 8.7,
+             color=MUTED, linespacing=1.55)
         if i < n - 1:
-            arrow(ax, x + w + 0.6, y0 + h / 2, x + w + gap - 0.8, y0 + h / 2,
-                  color=TEAL, lw=1.2)
-            text(ax, x + w + gap / 2, y0 + h + 4.2, L["arrows"][i], size=7.8,
+            arrow(ax, x + w + 0.5, y0 + h / 2, x + w + gap - 0.6, y0 + h / 2,
+                  color=TEAL, lw=1.3, ms=13)
+            text(ax, x + w + gap / 2, y0 + h + 4.6, L["arrows"][i], size=8.6,
                  color=MUTED)
 
-    text(ax, W / 2, 8, L["foot"], size=9.5, color=MUTED)
+    text(ax, W / 2, 9, L["foot"], size=10.2, color=MUTED)
     fig.savefig(OUT / f"formula-chain-{lang}.png", dpi=200, facecolor=BG)
     plt.close(fig)
 
@@ -285,14 +300,14 @@ QG = {
         "title": "Quality gates before delivery",
         "sub": "check_note.py turns “is this note good?” into a checkable list",
         "items": [
-            "Three-sentence spine; result has a number",
-            "Locators meet the threshold (L2 ≥ 8, deduped)",
-            "§5 has baselines, ablations, result numbers",
-            "4.3.0 derivation chain + derivation outside tables",
-            "Every equation has a motive and adjacent relation",
-            "7.1 author limitations + 7.2 further limitations",
-            "No placeholders or unlabeled unverified claims",
-            "L3: reproduction plan with runnable Python",
+            "Three-sentence spine + number",
+            "≥8 unique locators (L2)",
+            "§5: baselines, ablations, numbers",
+            "4.3.0 chain + derivation",
+            "Per-equation motive + neighbor",
+            "7.1 author + 7.2 further limits",
+            "No placeholders or unverified claims",
+            "L3: runnable Python reproduction",
         ],
         "foot": "0 errors / 0 warnings → ship; otherwise downgrade (L2→L1) and state the gap",
     },
@@ -301,25 +316,26 @@ QG = {
 
 def quality_gate(lang: str):
     L = QG[lang]
-    W, H = 150, 80
+    W, H = 150, 105
     fig, ax = canvas(W, H)
-    text(ax, 5, 73, L["title"], size=19, weight="bold", ha="left")
-    text(ax, 5, 67, L["sub"], size=10.2, color=MUTED, ha="left")
+    text(ax, 5, 98, L["title"], size=20, weight="bold", ha="left")
+    text(ax, 5, 92, L["sub"], size=11, color=MUTED, ha="left")
 
-    w, h = 64, 12.2
-    xs = [7, 79]
-    ys = [49, 34.5, 20, 5.5]
+    w, h = 65, 15
+    xs = [7, 78]
+    ys = [70, 50, 30, 10]
     for i, item in enumerate(L["items"]):
         col, row = i % 2, i // 2
         x, y = xs[col], ys[row]
         rounded(ax, x, y, w, h, fill=WHITE, edge=LINE)
-        cx, cy = x + 5, y + h / 2
-        ax.add_patch(Circle((cx, cy), 2.6, facecolor=TEAL, edgecolor="none", zorder=3))
-        ax.plot([cx - 1.2, cx - 0.3, cx + 1.5], [cy + 0.1, cy - 1.2, cy + 1.3],
-                color=WHITE, lw=1.9, solid_capstyle="round", zorder=6)
-        text(ax, x + 9.5, y + h / 2 + 0.2, item, size=9.0, ha="left", linespacing=1.35)
+        cx, cy = x + 5.5, y + h / 2
+        ax.add_patch(Circle((cx, cy), 3.3, facecolor=TEAL, edgecolor="none", zorder=3))
+        ax.plot([cx - 1.5, cx - 0.4, cx + 1.9], [cy + 0.1, cy - 1.5, cy + 1.6],
+                color=WHITE, lw=2.2, solid_capstyle="round", zorder=6)
+        text(ax, x + 11, y + h / 2 + 0.2, item, size=11.2 if lang == "zh" else 10.0,
+             ha="left", linespacing=1.35)
 
-    text(ax, 75, 1.2, L["foot"], size=8.8, color=MUTED)
+    text(ax, 75, 2.5, L["foot"], size=10, color=MUTED)
     fig.savefig(OUT / f"quality-gate-{lang}.png", dpi=200, facecolor=BG)
     plt.close(fig)
 
@@ -349,9 +365,9 @@ BG_DATA = {
             ("The authors did extensive\nexperiments.",
              "2 translation tasks + 1 parsing task;\nTable 3 covers heads, d_k, d_model,\nd_ff, dropout, positional encoding."),
             ("The limitation is that more\ndatasets are needed.",
-             "Authors acknowledge long-sequence cost\nand missing modalities; I add: no\nvariance/seeds, only qualitative\nhead interpretability."),
+             "Authors acknowledge long-sequence cost\nand missing modalities; I add: no\nvariance/seeds, only qualitative evidence."),
             ("This paper is very inspiring.",
-             "Transferable: self-attention as message passing;\nnext: test N=64/256/1024 on Kuramoto data."),
+             "Transferable: attention as message passing;\nnext: test N=64/256/1024 on Kuramoto."),
         ],
         "foot": "The difference is not style; it is whether each claim can be checked, compared, and acted on.",
     },
@@ -360,25 +376,25 @@ BG_DATA = {
 
 def bad_good(lang: str):
     L = BG_DATA[lang]
-    W, H = 160, 82
+    W, H = 170, 110
     fig, ax = canvas(W, H)
-    text(ax, 5, 76, L["title"], size=19, weight="bold", ha="left")
+    text(ax, 5, 103, L["title"], size=20, weight="bold", ha="left")
 
-    panels = [(5, RED_L, RED, L["bad"], 72), (83, GREEN_L, GREEN, L["good"], 72)]
+    panels = [(5, RED_L, RED, L["bad"], 77), (88, GREEN_L, GREEN, L["good"], 77)]
     for x, fill, edge, header, w in panels:
-        rounded(ax, x, 8, w, 61, fill=fill, edge=edge, lw=1.4)
-        text(ax, x + w / 2, 63, header, size=12, weight="bold")
+        rounded(ax, x, 10, w, 82, fill=fill, edge=edge, lw=1.4)
+        text(ax, x + w / 2, 86, header, size=14, weight="bold")
 
-    ys = [52, 39, 26, 13]
+    ys = [76, 58, 40, 22]
     for i, ((bad, good), y) in enumerate(zip(L["rows"], ys)):
-        ax.add_patch(Circle((10, y - 1.4), 0.9, facecolor=RED, edgecolor="none", zorder=4))
-        text(ax, 13, y, bad, size=9.8, color=RED,
+        ax.add_patch(Circle((10, y - 1.6), 1.1, facecolor=RED, edgecolor="none", zorder=4))
+        text(ax, 13.5, y, bad, size=11, color=RED,
              ha="left", va="top", linespacing=1.65)
-        ax.add_patch(Circle((88, y - 1.4), 0.9, facecolor=GREEN, edgecolor="none", zorder=4))
-        text(ax, 91, y, good, size=9.8, color=GREEN,
+        ax.add_patch(Circle((93, y - 1.6), 1.1, facecolor=GREEN, edgecolor="none", zorder=4))
+        text(ax, 96.5, y, good, size=11, color=GREEN,
              ha="left", va="top", linespacing=1.65)
 
-    text(ax, 80, 3.0, L["foot"], size=9.0, color=MUTED)
+    text(ax, 85, 3.5, L["foot"], size=10.2, color=MUTED)
     fig.savefig(OUT / f"bad-vs-good-{lang}.png", dpi=200, facecolor=BG)
     plt.close(fig)
 
@@ -389,14 +405,14 @@ COVER = {
     "zh": {
         "kicker": "OPEN-SOURCE SKILL · MIT",
         "title": "把论文读成\n可复核、可比较、可行动的笔记",
-        "sub": "一个面向 AI Agent 的文献阅读 Skill：证据定位 · 公式推导链 · 局限分析 · Python 复现",
+        "sub": "面向 AI Agent 的文献精读 Skill：证据 · 公式链 · 局限 · Python 复现",
         "chips": ["L1 / L2 / L3", "4.3 公式详解", "质量门自检", "中英双语"],
         "flow": ["论文", "证据", "公式链", "笔记"],
     },
     "en": {
         "kicker": "OPEN-SOURCE SKILL · MIT",
-        "title": "Turn a paper into\na note you can check, compare, and act on",
-        "sub": "A reading skill for AI agents: evidence locators · derivation chains · limitation analysis · Python reproduction",
+        "title": "Turn a paper into\na note you can check,\ncompare, and act on",
+        "sub": "A reading skill for AI agents: evidence · chains · limits · Python",
         "chips": ["L1 / L2 / L3", "4.3 walkthrough", "quality gates", "EN / 中文"],
         "flow": ["Paper", "Evidence", "Chain", "Note"],
     },
@@ -405,29 +421,30 @@ COVER = {
 
 def cover(lang: str):
     L = COVER[lang]
-    W, H = 170, 72
+    W, H = 170, 80
     fig, ax = canvas(W, H)
 
     # decorative note card on the right
-    rounded(ax, 112, 10, 52, 52, fill=WHITE, edge=LINE, lw=1.2)
-    text(ax, 138, 55, "NOTE", size=7, color=MUTED)
+    rounded(ax, 116, 10, 48, 58, fill=WHITE, edge=LINE, lw=1.2)
+    text(ax, 140, 62, "NOTE", size=8, color=MUTED)
     for i, s in enumerate(L["flow"]):
-        y = 45 - i * 10
-        rounded(ax, 118, y, 40, 7, fill=TEAL_L if i % 2 == 0 else YELLOW_L,
+        y = 50 - i * 11
+        rounded(ax, 122, y, 36, 8, fill=TEAL_L if i % 2 == 0 else YELLOW_L,
                 edge=TEAL if i % 2 == 0 else "#B58B2A", radius=1.4)
-        text(ax, 138, y + 3.5, s, size=9.2, weight="bold")
+        text(ax, 140, y + 4, s, size=10, weight="bold")
         if i < 3:
-            arrow(ax, 138, y - 0.4, 138, y - 2.6, color=TEAL, lw=1.0, ms=8)
+            arrow(ax, 140, y - 0.4, 140, y - 2.4, color=TEAL, lw=1.1, ms=9)
 
-    text(ax, 9, 60, L["kicker"], size=8, color=TEAL, weight="bold", ha="left")
-    text(ax, 9, 46, L["title"], size=24, weight="bold", ha="left", va="center", linespacing=1.45)
-    text(ax, 9, 27, L["sub"], size=9.6, color=MUTED, ha="left", linespacing=1.5)
+    text(ax, 9, 69, L["kicker"], size=9, color=TEAL, weight="bold", ha="left")
+    text(ax, 9, 51, L["title"], size=27 if lang == "zh" else 23.5,
+         weight="bold", ha="left", va="center", linespacing=1.45)
+    text(ax, 9, 29, L["sub"], size=11, color=MUTED, ha="left", linespacing=1.5)
 
     x = 9
     for chip in L["chips"]:
-        w = 4.2 + len(chip) * 1.55
-        rounded(ax, x, 10, w, 7, fill=WHITE, edge=LINE, radius=1.3)
-        text(ax, x + w / 2, 13.5, chip, size=8.0, color=INK)
+        w = 4.6 + len(chip) * 1.75
+        rounded(ax, x, 10, w, 8, fill=WHITE, edge=LINE, radius=1.3)
+        text(ax, x + w / 2, 14, chip, size=9.2, color=INK)
         x += w + 3
 
     fig.savefig(OUT / f"cover-{lang}.png", dpi=200, facecolor=BG)
