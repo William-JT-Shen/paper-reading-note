@@ -436,21 +436,20 @@ def cover(lang: str):
         y = 50 - i * 11
         rounded(ax, 122, y, 36, 8, fill=TEAL_L if i % 2 == 0 else YELLOW_L,
                 edge=TEAL if i % 2 == 0 else "#B58B2A", radius=1.4)
-        text(ax, 140, y + 4, s, size=10.5, weight="bold")
+        text(ax, 140, y + 4, s, size=10, weight="bold")
         if i < 3:
             arrow(ax, 140, y - 0.4, 140, y - 2.4, color=TEAL, lw=1.1, ms=9)
 
-    text(ax, 9, 69, L["kicker"], size=9, color=TEAL, weight="bold", ha="left")
-    text(ax, 9, 50, L["title"], size=25 if lang == "zh" else 23.5,
+    text(ax, 9, 69, L["kicker"], size=8.8, color=TEAL, weight="bold", ha="left")
+    text(ax, 9, 50, L["title"], size=24 if lang == "zh" else 22.5,
          weight="bold", ha="left", va="center", linespacing=1.45)
-    text(ax, 9, 28, L["sub"], size=11.5, color=MUTED, ha="left", linespacing=1.5)
+    text(ax, 9, 28, L["sub"], size=11.2, color=MUTED, ha="left", linespacing=1.5)
 
-    x = 9
-    for chip in L["chips"]:
-        w = 6.0 + display_width(chip) * 1.35
-        rounded(ax, x, 10, w, 8, fill=WHITE, edge=LINE, radius=1.3)
-        text(ax, x + w / 2, 14, chip, size=9.5, color=INK)
-        x += w + 3
+    chip_w, chip_gap = 24, 2.5
+    for i, chip in enumerate(L["chips"]):
+        x = 9 + i * (chip_w + chip_gap)
+        rounded(ax, x, 10, chip_w, 8, fill=WHITE, edge=LINE, radius=1.3)
+        text(ax, x + chip_w / 2, 14, chip, size=9.2, color=INK)
 
     fig.savefig(OUT / f"cover-{lang}.png", dpi=200, facecolor=BG)
     plt.close(fig)
