@@ -66,6 +66,11 @@ def text(ax, x, y, s, size=10, color=INK, weight="normal", ha="center", va="cent
             ha=ha, va=va, zorder=5, **kw)
 
 
+def display_width(s: str) -> int:
+    """Approximate display width: CJK characters count as 2, Latin as 1."""
+    return sum(2 if ord(ch) > 127 else 1 for ch in s)
+
+
 def wrap_display(s: str, width: int) -> str:
     """Wrap mixed CJK/Latin text: width is counted in CJK-character units."""
     lines, cur, used = [], "", 0
@@ -431,20 +436,20 @@ def cover(lang: str):
         y = 50 - i * 11
         rounded(ax, 122, y, 36, 8, fill=TEAL_L if i % 2 == 0 else YELLOW_L,
                 edge=TEAL if i % 2 == 0 else "#B58B2A", radius=1.4)
-        text(ax, 140, y + 4, s, size=11, weight="bold")
+        text(ax, 140, y + 4, s, size=10.5, weight="bold")
         if i < 3:
             arrow(ax, 140, y - 0.4, 140, y - 2.4, color=TEAL, lw=1.1, ms=9)
 
-    text(ax, 9, 69, L["kicker"], size=9.5, color=TEAL, weight="bold", ha="left")
-    text(ax, 9, 50, L["title"], size=26.5 if lang == "zh" else 24.5,
+    text(ax, 9, 69, L["kicker"], size=9, color=TEAL, weight="bold", ha="left")
+    text(ax, 9, 50, L["title"], size=25 if lang == "zh" else 23.5,
          weight="bold", ha="left", va="center", linespacing=1.45)
-    text(ax, 9, 28, L["sub"], size=12.5, color=MUTED, ha="left", linespacing=1.5)
+    text(ax, 9, 28, L["sub"], size=11.5, color=MUTED, ha="left", linespacing=1.5)
 
     x = 9
     for chip in L["chips"]:
-        w = 4.5 + len(chip) * 1.7
+        w = 6.0 + display_width(chip) * 1.35
         rounded(ax, x, 10, w, 8, fill=WHITE, edge=LINE, radius=1.3)
-        text(ax, x + w / 2, 14, chip, size=10.0, color=INK)
+        text(ax, x + w / 2, 14, chip, size=9.5, color=INK)
         x += w + 3
 
     fig.savefig(OUT / f"cover-{lang}.png", dpi=200, facecolor=BG)
