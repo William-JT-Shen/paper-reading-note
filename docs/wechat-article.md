@@ -2,7 +2,7 @@
 
 > 一个开源的论文精读 Skill：证据定位、公式推导链、作者/进一步局限、L3 Python 复现，以及一套能自动跑的 quality gate。
 >
-> 项目地址：`https://github.com/<your-name>/paper-reading-note`（发布时替换）
+> 项目地址：`https://github.com/William-JT-Shen/paper-reading-note`
 
 ![封面](images/cover-zh.png)
 
@@ -248,7 +248,7 @@ paper-reading-note/
 
 如果这套工作流对你有帮助，欢迎在 GitHub 上试用、提 issue，或者把它改成适合你所在领域的版本。
 
-> 项目地址：`https://github.com/<your-name>/paper-reading-note`
+> 项目地址：`https://github.com/William-JT-Shen/paper-reading-note`
 >
 > License: MIT
 
