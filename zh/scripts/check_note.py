@@ -232,13 +232,21 @@ def check_file(path: Path, level_override: str | None, strict: bool,
 
     # --- 读者标记与附录 1
     marks = re.findall(r"\$\^\{?\[(\d+)\]\}?\$", body)
-    if marks and "附录 1" not in body and "术语解释" not in body:
-        r.warn("STYLE", "正文有 <u>术语</u>$^{[n]}$ 标记，但未见“附录 1：术语解释”")
+    if marks and "附录 1" not in body and "术语解释" not in body and "术语与步骤解释" not in body:
+        r.warn("STYLE", "正文有 <u>术语</u>$^{[n]}$ 标记，但未见“附录 1：术语与步骤解释”")
     elif marks:
         tail = body.split("附录 1", 1)[-1] if "附录 1" in body else body.split("术语解释", 1)[-1]
         missing = sorted({m for m in marks if f"[{m}]" not in tail})
         if missing:
             r.warn("STYLE", "附录 1 缺少标记 " + "、".join(f"[{m}]" for m in missing) + " 的解释")
+
+    # --- 图注轴说明
+    if "<img src=" in body and ("横轴" not in body or "纵轴" not in body):
+        r.warn("STYLE", "正文有图片但未见“横轴/纵轴”说明：每张图应写明坐标轴含义与一句话结论")
+
+    # --- 否定式对举
+    if re.search(r"不是[^。；\n]{0,60}而是|并非[^。；\n]{0,60}而是", body):
+        r.warn("STYLE", "正文出现“不是…而是…”式否定对举：建议改为正面陈述或拆句")
 
     # --- 定位符（去重）
     loc = count_locators(body, r.abstract)

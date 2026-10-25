@@ -1,6 +1,6 @@
 ---
 name: paper-reading-note
-version: 1.3.11
+version: 1.4.18
 description: |
   Turn a paper into a paper reading note that is "verifiable, comparable, actionable". Covers single-paper
   deep reads, quick-read triage, multi-paper comparison matrices, topic synthesis, and research gap analysis;
@@ -246,7 +246,7 @@ notes/
 | 5 | Experiments and Evidence | data table, main results table, ablations, failure cases, compute cost | copying only the best number, no baseline setting |
 | 6 | Main Findings | three-column table: authors claim / evidence support / my judgement | treating the authors' conclusions as facts |
 | 7 | Critical Appraisal | 7.1 restate the authors' limitations, 7.2 further limitations, 7.3 strengths and scope, 7.4 threats to validity and reproducibility, 7.5 information gaps | no scoring, no confidence ratings; paraphrasing the authors' limitations is not a critique |
-| 8 | Relation to My Research | transferable / reusable / pitfalls / next experiments / further questions | empty phrases such as "very inspiring" |
+| 8 | Inspirations | transferable / reusable / pitfalls / next experiments / further questions | empty phrases such as "very inspiring" |
 | 9 | Research Gaps and Open Questions | four gap categories, each with three elements | treating "nobody has done it" as a gap |
 | 10 | Key Quotations | 2–4 verbatim quotations + page numbers + translation (optional) | presenting a paraphrase as a quotation |
 | Appendix | Appendix 1: Terminology | explain each reader-marked `<u>term</u>$^{[n]}$`: one-sentence definition, role in this paper, difference from adjacent concepts / common misconception; 2–4 sentences each | numbering inconsistent with the marks; copying sentences from the body |
@@ -286,7 +286,7 @@ L2/L3 notes must use these headings verbatim (the checker matches them exactly):
 ### 7.3 Strengths and Scope
 ### 7.4 Threats to Validity and Reproducibility
 ### 7.5 Information Gaps
-## 8. Relation to My Research
+## 8. Inspirations
 ## 9. Research Gaps and Open Questions
 ## 10. Key Quotations
 ## 11. Reproduction Plan
@@ -314,6 +314,28 @@ L2/L3 notes must use these headings verbatim (the checker matches them exactly):
 - **Formula rendering**: no natural-language text inside math mode (no CJK inside `\text{}`; write prose outside the equation); display equations use multi-line `$$` (opening and closing `$$` on their own lines), not single-line `$$...$$`; inside tables use `\lvert...\rvert` instead of bare `|` to avoid breaking the table.
 - **Field guide**: L2/L3 write `## Guide: What This Field Is About` before `## 0. At a Glance` (2–3 paragraphs): what the field studies, the three-level problem (how a single oscillator's phase is changed by stimulation / how two oscillators lock / whether a large population can synchronise, and what sets the threshold and population frequency), and which level this paper adds. Write for readers unfamiliar with the field; give background only, not the paper's conclusions; a self-drawn schematic may be added, and its caption must say "drawn by me, not from the paper".
 - **Figure embedding**: crop original figures from the PDF, preferably together with the caption, making sure axes, curves, and annotations are complete; store them in `notes/figures/` and reference them with relative paths. One figure per line, centered (`<p align="center"><img src="..." width="620" style="background:#fff; padding:6px; border-radius:6px;"></p>`); do not squeeze several figures onto one line; captions give "figure number + page + one sentence". Label self-drawn figures separately from original figures, and say in the body which concept they support.
+
+- **Symbol table first**: for L2/L3, put a symbol table after the field guide and before §0 (meaning / dimension / normalization); symbols covered by the table need only a one-sentence role statement at first appearance; if the table is at the front, §12 keeps only checks, errata and open doubts.
+- **Numbered equations as display**: when a numbered equation (Eq. (x), (a)(b)(c), (A1)…) first appears, set it as display math with its number; later citations may use inline shorthand.
+- **Declare new assumptions first**: when a derivation introduces an assumption or ansatz, state in one sentence what it assumes, how it differs from the previous case, and which equation changes, then give the formula.
+- **Show intermediate steps**: for substitution, differentiation, assignment and subtraction, write the intermediate result (inline is fine); do not jump to the conclusion; when writing "take X = …", give the basis (a previous equation or an assumption).
+- **First appearance of a formula states its source**: at first appearance, say which equations are combined or substituted, or which approximation yields it; do not give only a label or "from A6".
+- **Length yields to necessary derivation**: when completing a derivation, definition or source note, keep it; if the body slightly exceeds the L3 limit, report the overrun rather than deleting derivations, locators, numbers or formulas.
+- **Appendix references expand**: when the appendix first cites a numbered equation from the body, write the equation as display math with its number; do not give only the number.
+- **Symbol semantics check**: before using a symbol, ① check its definition in the paper (page/equation) and quote the original sentence; ② identify its type (count/density/amplitude/frequency/phase/dimensionless combination) and dimension; ③ check normalization or dimension consistency (e.g. ∫p dψ equals the number of oscillators counted; if the text says "A oscillators", then ∫p dψ = A). If any check fails, stop and re-read the paper; do not guess.
+- **No bare numbered citations**: when a numbered equation is not visible on the current page, write the equation at the citation: display for important equations (mechanism chain, conclusion, key derivation), inline for minor ones. Never leave only "(c)" or "(A10)". Same-section close citations and table lookups may use the number alone, but table cells should carry the short form.
+
+### WeChat Cover (Optional)
+
+When a note is published on WeChat, generate a cover; it is not part of the body and is not checked by the quality gate. The default style is "deep navy + gold phase circle":
+
+- main cover 900×383 (2.35:1), square cover 600×600 (1:1);
+- background `#0B1F33`, gold `#E8B44A`, warm white `#F4EFE6`, muted blue-gray `#9FB3C8`;
+- left text block (kicker / Chinese title / subtitle / at most one formula / metadata), right phase circle (gold dots = locked nucleus, gray dots = wild, center `SI`);
+- gold only for kicker, formula, ring and arrow; title ≤ 8 Chinese characters;
+- coordinates, type sizes, ring parameters and self-check: `references/06-cover-style.md`.
+
+Do not use a screenshot of the paper's first page by default, and do not stack abstracts or multiple accent colors.
 
 ## Evidence Rules (Summary)
 
@@ -353,6 +375,15 @@ Four tag types: `[Original]` the paper explicitly says it; `[Inference]` my reas
 - [ ] **No skipped steps**: each step gives the original equation and the operation (substitution/expansion/averaging/integration/limit); "from X we obtain Y" alone is not enough; basic algebra such as transposition need not be expanded
 - [ ] **Starting expression has a source**: every initial expression is labelled as one of definition / established fact / prior result / paper assumption; composite expressions are layered (simplest case first, then the added term)
 - [ ] **Key claims have a mechanism**: "only if / necessarily / equivalent" conclusions each have a 1–3 equation minimal mechanism + one intuition + boundaries; not a full proof and not a bare conclusion; linearization has a Taylor expansion
+- [ ] **Symbol table first**: L2/L3 put a symbol table after the field guide and before §0; table-covered symbols are not redefined in the body
+- [ ] **Numbered equations as display**: every numbered equation first appears as display math with its number
+- [ ] **New assumptions declared first**: assumptions/ansätze are stated before the formula they change
+- [ ] **Intermediate steps shown**: substitution/differentiation/assignment/subtraction have intermediate results; "take X = …" has a stated basis
+- [ ] **First formula appearance states its source**: which equations are combined/substituted or which approximation yields it
+- [ ] **Appendix references expanded**: a numbered equation first cited in the appendix is written out as display math
+- [ ] **Symbol semantics checked**: definition, type (count/density/amplitude/frequency) and normalization all verified
+- [ ] **No bare numbered citation**: unseen numbered equations are written out (display for key, inline for minor)
+- [ ] **§8 title**: "Inspirations", not "Relation to My Research"
 - [ ] **Reader marks explained**: every `<u>term</u>$^{[n]}$` in the body has an entry in "Appendix 1: Terminology" with a matching number
 - [ ] **Proofreading pass**: the 4.3 derivation and the body are read sentence by sentence; no missing subjects, mismatched collocations, redundant components, logical repetition, or unclear reference
 - [ ] **Field guide**: L2/L3 have a field guide before §0 (with the three-level problem and this paper's position); self-drawn figures labelled "drawn by me, not from the paper"
@@ -407,6 +438,7 @@ If any item fails: **downgrade first (L2→L1) and state the gap; do not fabrica
 | `references/03-comparison-synthesis-gap.md` | multi-paper comparison, synthesis, gap analysis, concept maps, citation chains |
 | `references/04-evidence-and-style.md` | while writing and self-checking; locators, tags, number discipline, wording ladder, citation format |
 | `references/05-reproduction-code.md` | when writing L3 §11; numerical-simulation/training Python skeletons and the reproduction-code checklist |
+| `references/06-cover-style.md` | before publishing on WeChat; cover 900×383 / 600×600 palette, layout, ring parameters, self-check and anti-patterns |
 | `templates/speed-card-L1.md` | L1 quick-read card |
 | `templates/note-L2.md` | L2 standard note (with 4.3 Equation Walkthrough and derivation outside the table; L3 fills in §11/§12 there) |
 | `templates/reproduction-plan.md` | L3 §11 reproduction plan (with Python code) |

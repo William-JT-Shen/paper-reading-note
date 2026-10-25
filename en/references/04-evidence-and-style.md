@@ -155,3 +155,34 @@ Rules:
 - [ ] original figures are complete (with axes/captions), one figure per line centered, captions have figure number and page; self-drawn figures are labelled
 - [ ] no CJK inside math mode; display equations use multi-line `$$`; no bare `|` in tables
 - [ ] no empty phrases like "good results/strong novelty"
+
+## 11. Formula, Symbol and Citation Rules (1.4.x)
+
+These rules complement the style section above; they are the English counterpart of the Chinese 1.4.x additions.
+
+- **Reader marks may point to steps, not only terms**: `<u>term or step</u>$^{[n]}$`; Appendix 1 is "Terminology and Derivation Steps". A step entry states: "Goal: which equation is being derived", then what operation was performed, why it is valid, and where the approximation or boundary lies.
+- **Underline only text**: `<u>text</u>`; keep formulas outside `<u>` because math rendering does not inherit underline.
+- **No "not … but …" constructions**: avoid "not X but Y" / "not merely X, but Y"; state Y positively, or split into two sentences. This applies to the body, captions and appendix.
+- **Symbol table first**: L2/L3 place a symbol table after the field guide and before §0 (symbol / meaning / dimension / normalization). Symbols covered by the table need only a one-sentence role statement at first appearance; if the table is at the front, §12 keeps only checks, errata and open doubts.
+- **Numbered equations as display**: a numbered equation (Eq. (x), (a)(b)(c), (A1)…) first appears as display math with its number; later citations may use inline shorthand.
+- **New assumptions declared first**: when an assumption or ansatz is introduced, state in one sentence what it assumes, how it differs from the previous case, and which equation changes; then give the formula.
+- **Intermediate steps shown**: substitution, differentiation, assignment and subtraction need their intermediate result (inline is fine); do not jump to the conclusion. "Take X = …" must state its basis (a previous equation or an assumption).
+- **First formula appearance states its source**: at first appearance, say which equations are combined/substituted, or which approximation yields it; do not give only a label or "from A6".
+- **Length yields to necessary derivation**: keep completed derivations, definitions and source notes; if the body slightly exceeds the L3 limit, report the overrun instead of deleting derivations, locators, numbers or formulas.
+- **Appendix references expand**: when the appendix first cites a numbered equation from the body, write the equation as display math with its number; do not give only the number.
+- **Symbol semantics check**: before using a symbol, ① check its definition in the paper (page/equation) and quote the original sentence; ② identify its type (count/density/amplitude/frequency/phase/dimensionless combination) and dimension; ③ check normalization or dimension consistency (e.g. ∫p dψ equals the number of oscillators counted; if the text says "A oscillators", then ∫p dψ = A). If any check fails, stop and re-read the paper; do not guess.
+- **No bare numbered citations**: when a numbered equation is not visible on the current page, write it at the citation: display for important equations (mechanism chain, conclusion, key derivation), inline for minor ones. Never leave only "(c)" or "(A10)". Same-section close citations and table lookups may use the number alone, but table cells should carry the short form.
+- **§8 title**: "Inspirations" rather than "Relation to My Research", so the note does not disclose the reader's research direction.
+
+## 12. Additional Pre-Delivery Checks (1.4.x)
+
+- [ ] symbol table after the field guide and before §0; table-covered symbols not redefined
+- [ ] numbered equations first appear as display math with their numbers
+- [ ] assumptions/ansätze stated before the formula they change
+- [ ] substitution/differentiation/assignment/subtraction show intermediate results; "take X = …" has a basis
+- [ ] first formula appearance states its source (equations/approximation)
+- [ ] appendix references expand the numbered equation as display math
+- [ ] symbol semantics checked (definition/type/normalization/dimension)
+- [ ] no bare numbered citation: important display, minor inline
+- [ ] §8 is titled "Inspirations"
+- [ ] no "not … but …" construction in body, captions or appendix

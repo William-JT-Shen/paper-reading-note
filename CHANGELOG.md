@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.4.18 — 2026-10-25
+
+- Chinese and English editions synced to 1.4.18.
+- Added the optional WeChat cover style "deep navy + gold phase circle": 900×383 main cover and 600×600 square cover; spec in `references/06-cover-style.md`.
+- 1.4.17: §8 title is "Inspirations" (Chinese: 启发), not "Relation to My Research".
+- 1.4.16: no bare numbered citations; important equations display, minor ones inline.
+- 1.4.15: mechanism/conclusion derivations restate a cited equation even at short distance.
+- 1.4.14: cross-section formula citations are restated as display math at first citation.
+- 1.4.12: symbol-semantics check (definition page/type/normalization/dimension).
+- 1.4.11: appendix first citations of numbered equations are expanded as display math.
+- 1.4.10: necessary derivations take priority over the L3 length cap; report any overrun.
+- 1.4.9: a formula's first appearance states which equations/approximation produce it.
+- 1.4.8: substitution/differentiation/assignment/subtraction show intermediate results; "take X = …" states its basis.
+- 1.4.7: new assumptions/ansätze are declared before the formula.
+- 1.4.6: numbered equations first appear as display math with numbers.
+- 1.4.5: symbol table goes after the field guide and before §0.
+- 1.4.4: appendix derivations use display math.
+- 1.4.3: underline only text; formulas stay outside `<u>`; appendix steps restate the target equation.
+- 1.4.2: "not … but …" constructions are banned.
+- 1.4.1: reader marks may point to derivation steps; Appendix 1 becomes "Terminology and Derivation Steps".
+- 1.4.0: crop-check each figure edge; explain before editing files; length budget with separate counts (body / captions / appendix).
+
 ## 1.3.11 — 2026-10-22
 
 - Reader-marked terms: `<u>term</u>$^{[n]}$` must be explained in `Appendix 1: Terminology` (definition, role, contrast); appendix does not count toward note length. The checker verifies that marks and entries match.

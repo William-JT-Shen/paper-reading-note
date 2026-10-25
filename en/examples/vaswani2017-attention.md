@@ -293,7 +293,7 @@ The ablation rows cover head count, key dimension, positional encoding and dropo
 
 - Concrete baseline numbers, settings and training-cost accounting; variance/run counts; failure cases; quantitative evidence for multi-head interpretability.
 
-## 8. Relation to My Research
+## 8. Inspirations
 
 > The following is written under the assumed scenario that the reader studies dynamical modeling of oscillator networks.
 

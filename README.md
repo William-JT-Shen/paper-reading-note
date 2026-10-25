@@ -2,7 +2,7 @@
 
 > Turn a paper into a note you can **check**, **compare**, and **act on** — not a longer abstract.
 
-[![version](https://img.shields.io/badge/version-1.3.11-2A9D8F)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-1.4.18-2A9D8F)](CHANGELOG.md)
 [![license](https://img.shields.io/badge/license-MIT-E9C46A)](LICENSE)
 [![languages](https://img.shields.io/badge/languages-EN%20%7C%20%E4%B8%AD%E6%96%87-E76F51)](en/README.md)
 
@@ -31,7 +31,7 @@ A fixed-structure reading note with three depth levels:
 | **L2** | Standard note | 45–90 min | The default: understand and archive a paper |
 | **L3** | Deep note | 2–4 h | Reproduce the paper or write about it |
 
-An L2 note contains: field guide, at-a-glance summary, metadata, problem definition, related work, method, **4.3 equation walkthrough**, experiments and evidence, main findings, **7.1 author limitations → 7.2 further limitations**, relation to your research, research gaps, key quotations, and a terminology appendix.
+An L2 note contains: field guide, at-a-glance summary, metadata, problem definition, related work, method, **4.3 equation walkthrough**, experiments and evidence, main findings, **7.1 author limitations → 7.2 further limitations**, inspirations (transferable ideas), research gaps, key quotations, and a terminology appendix.
 
 L3 adds a **reproduction plan with runnable Python** and a **formula/derivation verification** section.
 
@@ -122,7 +122,7 @@ The scripts are standard-library only; Python 3.9+ is enough.
 
 ## Worked example
 
-[`en/examples/vaswani2017-attention.md`](en/examples/vaswani2017-attention.md) is a full L2 note for *Attention Is All You Need*: field guide, equation chain, per-equation derivations, author/further limitations, terminology appendix, and research connection.
+[`en/examples/vaswani2017-attention.md`](en/examples/vaswani2017-attention.md) is a full L2 note for *Attention Is All You Need*: field guide, equation chain, per-equation derivations, author/further limitations, terminology appendix, and inspirations.
 
 The Chinese skill ships with the same example translated: [`zh/examples/vaswani2017-attention.md`](zh/examples/vaswani2017-attention.md).
 

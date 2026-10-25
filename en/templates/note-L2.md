@@ -20,6 +20,8 @@ tags: []
 
 > Version: {{...}} | Reading date: {{YYYY-MM-DD}}
 
+> **Rule reminders (1.4.x):** symbol table after the guide and before §0; numbered equations first appear as display math with numbers; state new assumptions before the formula; show intermediate results for substitution/differentiation/assignment/subtraction; at a formula's first appearance state which equations or approximation produce it; when the appendix cites a numbered equation, write it out as display math; do not leave bare "(c)"/"(A10)"; §8 is titled "Inspirations".
+
 ## Guide: What This Field Is About
 
 > Written for readers unfamiliar with the field; background only, no conclusions from this paper.
@@ -243,7 +245,7 @@ Therefore, ... . Substituting ... gives Eq. (y).}}
 
 - {{unreported / unverified / unreadable content}}
 
-## 8. Relation to My Research
+## 8. Inspirations
 
 - **Transferable methods**: {{specific mechanism + conditions under which it is transferable}}
 - **Reusable data / metrics / baselines**: {{...}}

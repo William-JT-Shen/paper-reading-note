@@ -24,7 +24,8 @@ en/
 │   ├── 02-critical-appraisal.md     # restating authors' limitations, further limitations, threats to validity, red-flag checklist
 │   ├── 03-comparison-synthesis-gap.md  # comparison matrix, five-part synthesis, four gap categories, concept maps, citation chains
 │   ├── 04-evidence-and-style.md     # locators, four tag types, number discipline, wording ladder, citation format
-│   └── 05-reproduction-code.md      # two Python reproduction skeletons: numerical simulation / training
+│   ├── 05-reproduction-code.md      # two Python reproduction skeletons: numerical simulation / training
+│   └── 06-cover-style.md            # WeChat cover: deep navy + gold phase circle, 900×383 / 600×600
 ├── templates/
 │   ├── speed-card-L1.md             # quick-read card
 │   ├── note-L2.md                   # standard note (with 4.3 Equation Walkthrough)
@@ -120,7 +121,7 @@ An L2 standard note contains:
 | 5 Experiments and Evidence | data, baselines, main results, ablations, failure cases, statistics |
 | 6 Main Findings | three columns: authors claim / evidence support / my judgement |
 | 7 Critical Appraisal | 7.1 restatement of the authors' limitations, 7.2 further limitations, 7.3 strengths and scope, 7.4 threats to validity and reproducibility, 7.5 information gaps (no scoring, no confidence ratings) |
-| 8 Relation to My Research | transferable, reusable, pitfalls to avoid, next experiments, follow-up questions |
+| 8 Inspirations | transferable, reusable, pitfalls to avoid, next experiments, follow-up questions |
 | 9 Research Gaps | problem/method/evidence/application gaps, each with evidence and a verifiable next step |
 | 10 Key Quotations | verbatim quotations with page numbers |
 
@@ -132,6 +133,15 @@ L3 adds:
 | 12 Formula and Derivation Verification | symbol/dimension table, step-by-step check, errata, remaining doubts |
 
 Example: [`examples/vaswani2017-attention.md`](examples/vaswani2017-attention.md).
+
+### WeChat Cover (Optional)
+
+When publishing on WeChat, an optional cover can be generated; it is not part of the body.
+
+- main cover 900×383 (2.35:1), square cover 600×600 (1:1);
+- deep navy background, gold only for kicker/formula/ring/arrow;
+- left text block, right phase circle (gold = locked nucleus, gray = wild, center `SI`);
+- full palette, coordinates, type sizes and self-check: [`references/06-cover-style.md`](references/06-cover-style.md).
 
 ## Design Notes
 
