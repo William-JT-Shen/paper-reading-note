@@ -17,6 +17,8 @@
 10. **Label the source of the starting expression**: when giving an initial expression, state its nature — definition, accepted fact/conservation law, previous conclusion (Eq. x), or paper assumption. For composite expressions, give the simplest case first (e.g. free running), then explain why the added term (e.g. $+\Delta f$) is introduced.
 11. **Key claims get a mechanism**: for judgments such as "only … is stable", "necessarily", "equivalent", give a minimal mechanism in 1–3 equations + one plain-language intuition + the boundary. Do not write a full proof, and do not only state the conclusion. For linearization, write the Taylor expansion (first-order term + remainder).
 12. **Reader markers and Appendix 1**: readers mark unfamiliar terms as `<u>term</u>$^{[n]}$` to ask the Agent to explain them in Appendix 1. Keep the marks and numbering, and write one entry per number at the end of the note with "definition + role + distinction", 2–4 sentences each.
+13. **Explain axes before meaning**: before a figure, state what the horizontal and vertical axes are (variable + unit/range), what each line/region/colour/symbol means, and one sentence on what the figure shows; do not drop a figure without explanation.
+14. **Symbol table first**: put a single symbol table after the field guide and before §0 (meaning + dimension + normalization); symbols covered by the table need only a one-sentence role statement at first appearance; symbols not in the table are defined where they first appear.
 
 ## 2. Section-by-Section Question Checklist
 
