@@ -29,6 +29,8 @@
 
 - **公众号封面（可选）**：深蓝 + 金色相位圆，主封面 900×383、方封面 600×600；细则见 `references/06-cover-style.md`。
 
+- **自绘图版式自检**：领域导读示意图这类自绘图用 `scripts/draw_schematic.py` 的 `Canvas` 生成——箭头端点自动吸附到方框边框外侧、四步循环首尾闭合、同组方框等大等距、画幅由内容包围盒反推（四边留白相等）；保存前 `Canvas.check()` 在几何层面直接报错（穿框 / 悬空 / 压线 / 留白失衡），`--check` 可复查已有 PNG。细则与四类真实反例见 `references/07-self-drawn-figure.md`。
+
 ## 目录结构
 
 ```text
@@ -43,7 +45,8 @@ paper-reading-note/
 │   │   ├── 03-comparison-synthesis-gap.md  # 对比矩阵、综述五段式、gap 四分类、概念图、引用链
 │   │   ├── 04-evidence-and-style.md # 定位符、四类标签、数值纪律、措辞阶梯、引用格式
 │   │   ├── 05-reproduction-code.md  # 数值模拟 / 训练两套 Python 复现骨架
-│   │   └── 06-cover-style.md        # 公众号封面：深蓝 + 金色相位圆，900×383 / 600×600
+│   │   ├── 06-cover-style.md        # 公众号封面：深蓝 + 金色相位圆，900×383 / 600×600
+│   │   └── 07-self-drawn-figure.md  # 自绘图版式十条硬规则、四类反例、骨架代码、自检清单
 │   ├── templates/
 │   │   ├── speed-card-L1.md         # 速读卡
 │   │   ├── note-L2.md               # 标准笔记（含 4.3 公式详解；L3 追加 11/12 节）
@@ -52,7 +55,8 @@ paper-reading-note/
 │   │   └── synthesis.md             # 综述笔记
 │   ├── scripts/
 │   │   ├── check_note.py            # 笔记自检（结构 / 定位符 / 数值 / 公式详解 / 复现代码 / 占位符）
-│   │   └── build_matrix.py          # 批量笔记 → 矩阵（Markdown + CSV）
+│   │   ├── build_matrix.py          # 批量笔记 → 矩阵（Markdown + CSV）
+│   │   └── draw_schematic.py        # 自绘图工具与几何自检（端点吸附 + 断言；--check 查留白/画幅）
 │   └── examples/
 │       └── vaswani2017-attention.md # 已填写的 L2 示例
 ├── en/                              # 英文版（内容对应）
@@ -132,6 +136,7 @@ python "<skill-dir>/scripts/check_note.py" notes/                    # 检查目
 python "<skill-dir>/scripts/check_note.py" notes/ --strict           # 警告也视为失败
 python "<skill-dir>/scripts/check_note.py" notes/ --abstract         # 仅摘要卡模式
 python "<skill-dir>/scripts/build_matrix.py" notes/ -o notes/matrix.md --csv notes/matrix.csv
+python "<skill-dir>/scripts/draw_schematic.py" --check notes/figures/*.png   # 自绘图留白/画幅检查
 ```
 
 - 直接传目录：PowerShell 不会展开 `notes/*.md`；脚本会递归查找并跳过 `index.md`、`matrix.md`、

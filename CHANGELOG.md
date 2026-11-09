@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.19 — 2026-11-07
+
+- Added `references/07-self-drawn-figure.md`: ten layout rules for self-drawn schematics, four real defect cases seen in practice (arrow heads landing inside boxes, dangling loop arrows, annotation arrows pointing at whitespace, unbalanced margins / unequal sibling boxes), skeleton code and a pre-delivery checklist.
+- Added `scripts/draw_schematic.py`: `Canvas` snaps arrow endpoints to box borders (`edge_point` + pad), asserts no box/arrow/text overlap, equal-size & equal-gap groups, and derives the canvas from the content bounding box so margins are equal; `--check` audits existing PNGs (margins, aspect-vs-content).
+- `SKILL.md`: the field-guide and figure-embedding rules now require self-drawn figures to be produced with `draw_schematic` (no hand-written endpoints or `figsize`); one quality-gate item added. `references/04-evidence-and-style.md` and `templates/note-L2.md` point to the new rules.
+- zh edition only; en edition sync pending.
+
 ## 1.4.18 — 2026-10-25
 
 - Chinese and English editions synced to 1.4.18.
